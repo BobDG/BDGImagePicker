@@ -49,7 +49,7 @@
         [viewController presentViewController:picker animated:TRUE completion:^{
         }];
     }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", kLocalizedTableName, @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }]];
     if(!CGRectIsEmpty(sourceRect)) {
