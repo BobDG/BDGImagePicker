@@ -10,13 +10,18 @@ pod 'BDGImagePicker'
 
 ## Usage
 
-//Import
+Import
+```
 #import <BDGImagePicker.h>
+```
 
-//Instance variable (currently creating a fix so you don't have to do this)
+Instance variable (currently creating a fix so you don't have to do this)
+```
 @property(nonatomic,strong) BDGImagePicker *imagePicker;
+```
 
-//Use it from anywhere
+Use it from anywhere
+```
 self.imagePicker = [BDGImagePicker new];
 self.imagePicker.allowsEditing = TRUE;
 self.imagePicker.title = NSLocalizedString(@"Photo", @"");
@@ -24,3 +29,4 @@ self.imagePicker.title = NSLocalizedString(@"Photo", @"");
     //Do something with the image!
 }];
 [self.imagePicker pickImageFromViewController:self];
+```
