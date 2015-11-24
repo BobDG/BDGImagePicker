@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.resources      = ['**/*.lproj']
   s.platform       = :ios
   s.requires_arc   = true
-  spec.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '8.0'
 end

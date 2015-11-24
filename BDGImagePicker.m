@@ -5,7 +5,6 @@
 //  Copyright (c) 2015 GraafICT. All rights reserved.
 //
 
-#import "Constants.h"
 #import "BDGImagePicker.h"
 
 #define kLocalizedTableName         @"BGIP_Localizable"
