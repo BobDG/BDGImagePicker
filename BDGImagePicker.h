@@ -13,6 +13,9 @@
     
 }
 
+//Quick constructors
+-(instancetype)initWithTitle:(NSString *)title allowsEditing:(BOOL)allowsEditing;
+
 //Optional properties
 @property(nonatomic) bool allowsEditing;
 @property(nonatomic) bool statusBarHidden;
@@ -23,8 +26,12 @@
 @property(nonatomic, copy) void (^pickerDismissed)(void);
 @property(nonatomic, copy) void (^imagePicked)(UIImage *image);
 
-//Pick image method
+//Public methods
 -(void)pickImageFromViewController:(UIViewController *)viewController;
 -(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect;
+-(void)pickImageFromViewController:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked;
+-(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked;
+-(void)pickImageFromViewController:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked pickerDismissed:(void(^)())pickerDismissed;
+-(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked pickerDismissed:(void(^)())pickerDismissed;
 
 @end

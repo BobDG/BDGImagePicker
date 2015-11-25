@@ -20,7 +20,22 @@
 
 @implementation BDGImagePicker
 
-#pragma mark Public methods
+#pragma mark Constructors
+
+-(instancetype)initWithTitle:(NSString *)title allowsEditing:(BOOL)allowsEditing
+{
+    self = [super init];
+    if(!self) {
+        return nil;
+    }
+    
+    self.title = title;
+    self.allowsEditing = allowsEditing;
+    
+    return self;
+}
+
+#pragma mark PickImage methods
 
 -(void)pickImageFromViewController:(UIViewController *)viewController
 {
@@ -58,6 +73,33 @@
     }
     [viewController presentViewController:alertController animated:TRUE completion:nil];
 }
+
+-(void)pickImageFromViewController:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked
+{
+    self.imagePicked = imagePicked;
+    [self pickImageFromViewController:viewController];
+}
+
+-(void)pickImageFromViewController:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked pickerDismissed:(void(^)())pickerDismissed
+{
+    self.pickerDismissed = pickerDismissed;
+    [self pickImageFromViewController:viewController imagePicked:imagePicked];
+}
+
+-(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked
+{
+    self.imagePicked = imagePicked;
+    [self pickImageFromViewController:viewController sourceRect:sourceRect];
+}
+
+-(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked pickerDismissed:(void(^)())pickerDismissed
+{
+    self.imagePicked = imagePicked;
+    self.pickerDismissed = pickerDismissed;
+    [self pickImageFromViewController:viewController sourceRect:sourceRect];
+}
+
+#pragma mark Custom Setter
 
 -(void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle
 {
