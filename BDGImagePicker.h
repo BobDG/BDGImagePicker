@@ -17,6 +17,8 @@
 -(instancetype)initWithTitle:(NSString *)title allowsEditing:(BOOL)allowsEditing;
 
 //Optional properties
+@property(nonatomic) bool video;
+@property(nonatomic) bool frontCamera;
 @property(nonatomic) bool allowsEditing;
 @property(nonatomic) bool statusBarHidden;
 @property(nonatomic,strong) NSString *title;

@@ -50,6 +50,12 @@
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"TakePicture", kLocalizedTableName, @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             UIImagePickerController * picker = [[UIImagePickerController alloc] init];
             picker.delegate = self;
+            if(self.frontCamera) {
+                picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+            }
+            if(self.video) {
+                picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            }
             picker.allowsEditing = self.allowsEditing;
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             [viewController presentViewController:picker animated:TRUE completion:^{
