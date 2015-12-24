@@ -50,16 +50,17 @@
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"TakePicture", kLocalizedTableName, @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             UIImagePickerController * picker = [[UIImagePickerController alloc] init];
             picker.delegate = self;
+            picker.allowsEditing = self.allowsEditing;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             if(self.frontCamera) {
                 picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
             }
             if(self.video) {
                 picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
             }
-            picker.allowsEditing = self.allowsEditing;
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             [viewController presentViewController:picker animated:TRUE completion:^{
             }];
+            CFRunLoopWakeUp(CFRunLoopGetCurrent());
         }]];
     }
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"ChoosePicture", kLocalizedTableName, @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -69,6 +70,7 @@
         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [viewController presentViewController:picker animated:TRUE completion:^{
         }];
+        CFRunLoopWakeUp(CFRunLoopGetCurrent());
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", kLocalizedTableName, @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
@@ -78,6 +80,7 @@
         alertController.popoverPresentationController.sourceRect = sourceRect;
     }
     [viewController presentViewController:alertController animated:TRUE completion:nil];
+    CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
 
 -(void)pickImageFromViewController:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked
