@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name           = 'BDGImagePicker'
-  s.version        = '0.0.12'
+  s.version        = '0.0.14'
   s.summary        = 'Lightweight wrapper around UIImagePickerController'
   s.license 	   = 'MIT'
   s.description    = 'Ultra lightweight wrapper around UIImagePickerController with completion blocks'
