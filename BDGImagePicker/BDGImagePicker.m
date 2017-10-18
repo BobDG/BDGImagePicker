@@ -5,6 +5,8 @@
 //  Copyright (c) 2015 GraafICT. All rights reserved.
 //
 
+#import <BDGCategories/UIImage+Helper.h>
+
 #import "BDGImagePicker.h"
 
 @interface BDGImagePicker () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -170,10 +172,22 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *selectedImage = nil;
+    
     //Edited
     if(self.allowsEditing) {
-        selectedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+        if(self.takingPicture) {
+            selectedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+        }
+        else {
+            //There's a bug causing black bars when choosing from the camera roll
+            selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+            selectedImage = [selectedImage fixOrientation];
+            
+            CGRect crop = [[info valueForKey:UIImagePickerControllerCropRect] CGRectValue];
+            selectedImage = [selectedImage cropToRect:crop];
+        }
     }
+    
     //Original
     if(!selectedImage) {
         selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
