@@ -181,8 +181,7 @@
         else {
             //There's a bug causing black bars when choosing from the camera roll
             selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-            selectedImage = [selectedImage fixOrientation];
-            
+            selectedImage = [selectedImage fixOrientation];            
             CGRect crop = [[info valueForKey:UIImagePickerControllerCropRect] CGRectValue];
             selectedImage = [selectedImage cropToRect:crop];
         }
