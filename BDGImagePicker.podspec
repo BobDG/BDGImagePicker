@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name           = 'BDGImagePicker'
-  s.version        = '0.0.15'
+  s.version        = '0.0.16'
   s.summary        = 'Lightweight wrapper around UIImagePickerController'
   s.license 	   = 'MIT'
   s.description    = 'Ultra lightweight wrapper around UIImagePickerController with completion blocks'
@@ -8,7 +8,8 @@ Pod::Spec.new do |s|
   s.authors        = {'Bob de Graaf' => 'graafict@gmail.com'}
   s.source         = { :git => 'https://github.com/BobDG/BDGImagePicker.git', :tag => s.version.to_s }
   s.source_files   = 'BDGImagePicker/*.{h,m}'  
-  s.platform       	= :ios, '8.0'
-  s.requires_arc   	= true
+  s.platform       = :ios, '8.0'
+  s.frameworks     = 'AVFoundation'
+  s.requires_arc   = true
   s.dependency     'BDGCategories'
 end
