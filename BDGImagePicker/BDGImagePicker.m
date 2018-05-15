@@ -82,17 +82,7 @@
     NSString *mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     if(authStatus == AVAuthorizationStatusDenied || authStatus == AVAuthorizationStatusRestricted) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"BDGImagePicker_Camera_Denied_Popup_Title", @"") message:NSLocalizedString(@"BDGImagePicker_Camera_Denied_Popup_Message", @"") preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BDGImagePicker_Camera_Denied_Popup_Button_Settings", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-        }]];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BDGImagePicker_Cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            //Do nothing
-        }]];
-        [viewController presentViewController:alertController animated:TRUE completion:^{
-            
-        }];
-        CFRunLoopWakeUp(CFRunLoopGetCurrent());
+        [BDGImagePicker showCameraAccessRequiredPopupFromViewController:viewController];
         return;
     }
     
@@ -243,6 +233,23 @@
             self.pickerDismissed();
         }
     }];
+}
+
+#pragma mark - Popup methods
+
++(void)showCameraAccessRequiredPopupFromViewController:(UIViewController *)viewController
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"BDGImagePicker_Camera_Denied_Popup_Title", @"") message:NSLocalizedString(@"BDGImagePicker_Camera_Denied_Popup_Message", @"") preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BDGImagePicker_Camera_Denied_Popup_Button_Settings", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BDGImagePicker_Cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        //Do nothing
+    }]];
+    [viewController presentViewController:alertController animated:TRUE completion:^{
+        
+    }];
+    CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
 
 #pragma mark UINavigationController delegate methods

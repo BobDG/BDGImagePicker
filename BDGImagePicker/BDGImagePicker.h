@@ -20,7 +20,7 @@
 "BDGImagePicker_ChoosePhoto" = "Choose photo";
 "BDGImagePicker_Camera_Denied_Popup_Title" = "Camera access denied";
 "BDGImagePicker_Camera_Denied_Popup_Message" = "Access to the camera is needed to take pictures. Please open the settings using the button below and allow access.";
-"BDGImagePicker_Camera_Denied_Popup_Button_Settings" = "Settings"; 
+"BDGImagePicker_Camera_Denied_Popup_Button_Settings" = "Settings";
 */
 
 //Quick constructors
@@ -57,5 +57,6 @@
 -(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked;
 -(void)pickImageFromViewController:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked pickerDismissed:(void(^)(void))pickerDismissed;
 -(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked pickerDismissed:(void(^)(void))pickerDismissed;
++(void)showCameraAccessRequiredPopupFromViewController:(UIViewController *)viewController;
 
 @end
