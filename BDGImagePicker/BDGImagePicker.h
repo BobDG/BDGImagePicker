@@ -57,6 +57,10 @@
 -(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked;
 -(void)pickImageFromViewController:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked pickerDismissed:(void(^)(void))pickerDismissed;
 -(void)pickImageFromViewController:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked pickerDismissed:(void(^)(void))pickerDismissed;
+
 +(void)showCameraAccessRequiredPopupFromViewController:(UIViewController *)viewController;
+-(void)pictureFromCamera:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked;
+-(void)pictureFromPhotoLibrary:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked;
+-(void)pictureFromPhotoLibrary:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked;
 
 @end

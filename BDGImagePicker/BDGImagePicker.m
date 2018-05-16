@@ -75,10 +75,12 @@
     return self;
 }
 
-#pragma mark - Take picture with camera
+#pragma mark - Quick access to take picture/photo library (e.g. when using custom alertcontroller)
 
--(void)takePictureWithCamera:(UIViewController *)viewController
+-(void)pictureFromCamera:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked
 {
+    self.imagePicked = imagePicked;
+    
     NSString *mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     if(authStatus == AVAuthorizationStatusDenied || authStatus == AVAuthorizationStatusRestricted) {
@@ -102,10 +104,15 @@
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
 
-#pragma mark - Select picture from photo library
-
--(void)selectPictureFromPhotoLibrary:(UIViewController *)viewController sourceRect:(CGRect)sourceRect
+-(void)pictureFromPhotoLibrary:(UIViewController *)viewController imagePicked:(void(^)(UIImage *image))imagePicked
 {
+    [self pictureFromPhotoLibrary:viewController sourceRect:CGRectZero imagePicked:imagePicked];
+}
+
+-(void)pictureFromPhotoLibrary:(UIViewController *)viewController sourceRect:(CGRect)sourceRect imagePicked:(void(^)(UIImage *image))imagePicked
+{
+    self.imagePicked = imagePicked;
+    
     self.takingPicture = FALSE;
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
@@ -138,11 +145,11 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         [alertController addAction:[UIAlertAction actionWithTitle:takePhoto style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self takePictureWithCamera:viewController];
+            [self pictureFromCamera:viewController imagePicked:self.imagePicked];
         }]];
     }
-    [alertController addAction:[UIAlertAction actionWithTitle:choosePhoto style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self selectPictureFromPhotoLibrary:viewController sourceRect:sourceRect];
+    [alertController addAction:[UIAlertAction actionWithTitle:choosePhoto style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {        
+        [self pictureFromPhotoLibrary:viewController sourceRect:sourceRect imagePicked:self.imagePicked];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
