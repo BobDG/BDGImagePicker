@@ -38,6 +38,7 @@
 @property(nonatomic) bool allowsEditing;
 @property(nonatomic) bool statusBarHidden;
 @property(nonatomic) bool saveInCameraRoll;
+@property(nonatomic) bool modalPresentFullScreen;
 @property(nonatomic) UIStatusBarStyle statusBarStyle;
 
 //Optional references

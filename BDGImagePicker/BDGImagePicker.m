@@ -93,6 +93,9 @@
     picker.delegate = self;
     picker.allowsEditing = self.allowsEditing;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    if(self.modalPresentFullScreen) {
+        picker.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
     if(self.frontCamera) {
         picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
     }
@@ -117,6 +120,9 @@
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.allowsEditing = self.allowsEditing;
+    if(self.modalPresentFullScreen) {
+        picker.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.popoverController = [[UIPopoverController alloc] initWithContentViewController:picker];
