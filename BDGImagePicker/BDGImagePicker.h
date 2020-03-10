@@ -40,6 +40,7 @@
 @property(nonatomic) bool saveInCameraRoll;
 @property(nonatomic) bool modalPresentFullScreen;
 @property(nonatomic) UIStatusBarStyle statusBarStyle;
+@property(nonatomic) UIAlertControllerStyle alertStyle;
 
 //Optional references
 @property(nonatomic,strong) NSString *title;

@@ -71,6 +71,7 @@
     self.choosePhoto = choosePhoto;
     self.allowsEditing = allowsEditing;
     self.saveInCameraRoll = saveInCameraRoll;
+    self.alertStyle = UIAlertControllerStyleActionSheet;
     
     return self;
 }
@@ -124,14 +125,9 @@
         picker.modalPresentationStyle = UIModalPresentationFullScreen;
     }
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:picker];
-        [self.popoverController presentPopoverFromRect:sourceRect inView:viewController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
-    else {
-        [viewController presentViewController:picker animated:TRUE completion:^{
-        }];
-    }
+  
+    [viewController presentViewController:picker animated:TRUE completion:^{
+    }];
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
 
@@ -148,7 +144,7 @@
     NSString *cancel = self.cancel.length ? self.cancel : NSLocalizedString(@"BDGImagePicker_Cancel", @"");
     NSString *takePhoto = self.takePhoto.length ? self.takePhoto : NSLocalizedString(@"BDGImagePicker_TakePhoto", @"");
     NSString *choosePhoto = self.choosePhoto.length ? self.choosePhoto : NSLocalizedString(@"BDGImagePicker_ChoosePhoto", @"");
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:@"" preferredStyle:self.alertStyle];
     if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         [alertController addAction:[UIAlertAction actionWithTitle:takePhoto style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self pictureFromCamera:viewController imagePicked:self.imagePicked];
