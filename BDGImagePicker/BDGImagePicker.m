@@ -69,7 +69,8 @@
     self.cancel = cancel;
     self.takePhoto = takePhoto;
     self.choosePhoto = choosePhoto;
-    self.allowsEditing = allowsEditing;
+    self.allowsEditingForCamera = allowsEditing;
+    self.allowsEditingForLibrary = allowsEditing;
     self.saveInCameraRoll = saveInCameraRoll;
     self.alertStyle = UIAlertControllerStyleActionSheet;
     
@@ -92,7 +93,7 @@
     self.takingPicture = TRUE;
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    picker.allowsEditing = self.allowsEditing;
+    picker.allowsEditing = self.allowsEditingForCamera;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     if(self.modalPresentFullScreen) {
         picker.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -120,7 +121,7 @@
     self.takingPicture = FALSE;
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    picker.allowsEditing = self.allowsEditing;
+    picker.allowsEditing = self.allowsEditingForLibrary;
     if(self.modalPresentFullScreen) {
         picker.modalPresentationStyle = UIModalPresentationFullScreen;
     }
@@ -205,19 +206,18 @@
     UIImage *selectedImage = nil;
     
     //Edited
-    if(self.allowsEditing) {
-        if(self.takingPicture) {
-            selectedImage = [info objectForKey:UIImagePickerControllerEditedImage];
-        }
-        else {
-            //There's a bug causing black bars when choosing from the camera roll
-            selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-            selectedImage = [selectedImage fixOrientation];
-            
-            CGRect crop = [[info valueForKey:UIImagePickerControllerCropRect] CGRectValue];
-            selectedImage = [selectedImage cropToRect:crop];
-        }
+    if(self.takingPicture && self.allowsEditingForCamera) {
+        selectedImage = [info objectForKey:UIImagePickerControllerEditedImage];
     }
+    else if (self.allowsEditingForLibrary) {
+        //There's a bug causing black bars when choosing from the camera roll
+        selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        selectedImage = [selectedImage fixOrientation];
+        
+        CGRect crop = [[info valueForKey:UIImagePickerControllerCropRect] CGRectValue];
+        selectedImage = [selectedImage cropToRect:crop];
+    }
+    
     
     //Original
     if(!selectedImage) {
